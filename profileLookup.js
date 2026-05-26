@@ -1,5 +1,13 @@
-import profiles from '../data/profiles.json' assert { type: 'json' };
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { normalizeSign } from '../utils/signs.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const profilesPath = path.join(__dirname, '../data/profiles.json');
+const profiles = JSON.parse(fs.readFileSync(profilesPath, 'utf8'));
 
 const keyOf = (sun, moon, rising) => `${sun}|${moon}|${rising}`;
 const index = new Map(profiles.map((profile) => [profile.key, profile]));
